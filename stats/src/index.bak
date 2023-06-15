@@ -1,0 +1,82 @@
+/*
+import fs from 'fs';
+
+const matches = fs
+  .readFileSync('football.csv', {
+    encoding: 'utf-8',
+  })
+  .split('\n')
+  .map((row: string): string[] => {
+    return row.split(',');
+  });
+
+// console.log(matches);
+
+let manUnitedWIns = 0;
+
+for (let match of matches) {
+  if (match[1] === 'Man United' && match[5] === 'H') {
+    manUnitedWIns++;
+  } else if (match[2] === 'Man United' && match[5] === 'A') {
+    manUnitedWIns++;
+  }
+}
+
+console.log(`Man United won ${manUnitedWIns} games`);
+*/
+
+/* Bad code issues happen above
+1. Magic string comparisons
+2. Source of data is hardcoded
+3. Data array is all strings, even though it might have numbers in it
+4. Variable named after a specific term
+5. Analysis type is fixed
+6. No abilityt output the report in different formats
+*/
+
+
+// Inheritance - Abstract Class and Generics Approach
+import { MatchReader } from './inheritance/MatchReader';
+import { MatchResult } from './MatchData';
+
+const reader = new MatchReader('football.csv');
+reader.read();
+
+// const dateOfFirstMatch = reader.data[0][0];
+
+let manUnitedWins = 0;
+
+for (let match of reader.data) {
+  if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
+    manUnitedWins++;
+  } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
+    manUnitedWins++;
+  }
+}
+
+console.log(`Man United won ${manUnitedWins} games`);
+
+// Composition - Interface Approach
+import { CsvFileReader } from './composition/CsvFileReaderComposition';
+import { MatchReader } from './composition/MatchReaderComposition';
+import { MatchResult } from './MatchData';
+
+// Create an object that satisfies the 'DataReader' interface
+const csvFileReader = new CsvFileReader('football.csv');
+
+// Create an instance of MatchReader and pass in something satisfying
+// the 'DataReader' interface
+const matchReader = new MatchReader(csvFileReader); // Object Composition
+matchReader.load();
+
+let manUnitedWins = 0;
+
+for (let match of matchReader.matches) {
+  if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
+    manUnitedWins++;
+  } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
+    manUnitedWins++;
+  }
+}
+
+console.log(`Man United won ${manUnitedWins} games`);
