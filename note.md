@@ -219,13 +219,22 @@ carMakers.map((car: string): string => {
 
 #### When to use typed arrays?
 
-**Any time we need to represent a collection of records with come arbitrary sort order**
+_Any time we need to represent a collection of records with come arbitrary sort order_
 
 ### Tuples (**Not used often**)
 
-Array-like structure where each element represents some property of a record.
+_Array-like structure where each element represents some property of a record_
 
 **TODO:EXAMPLE**
+
+```typescript
+type Drink = [string, boolean, number];
+
+const pepsi: Drink = ['brown', true, 40];
+const tea: Drink = ['green', false, 0];
+```
+
+Could be useful when parsing an array of csv data
 
 <br>
 
