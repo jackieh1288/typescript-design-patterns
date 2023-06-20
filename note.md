@@ -684,3 +684,13 @@ holdString.data = 'hello';
 
 **Inheritance** -> Charaterized by an **_"is a"_** relationship between two classes.  
 **Composition** -> Characterized by a **_"has a"_** relationship between two classes.
+
+---
+
+> **_Jun 19, 2023_**
+
+#### Serialize: Convert data from an object into some save-able format (json)
+
+#### Deserialize: Put data on an object using some previously saved data (json)
+
+composition - delegation
