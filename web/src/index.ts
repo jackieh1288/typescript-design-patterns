@@ -1,22 +1,14 @@
-import { Collection } from './models/Collection';
-import { User, UserProps } from './models/User';
+import { UserForm } from './views/UserForm';
+import { User } from './models/User';
 
-const collection = User.buildUserCollection();
+const user = User.buildUser({ name: 'Name', age: 20 });
 
-collection.on('change', () => {
-  console.log(collection);
-});
+const root = document.getElementById('root');
 
-collection.fetch();
+if (root) {
+  const userForm = new UserForm(root, user);
 
-setTimeout(() => {
-  const lastIndex = collection.models.length;
-  console.log(lastIndex);
-  const user = User.buildUser({ id: lastIndex });
-
-  user.on('change', () => {
-    console.log(user);
-  });
-
-  user.fetch();
-}, 4000);
+  userForm.render();
+} else {
+  throw new Error('Root element not found');
+}
