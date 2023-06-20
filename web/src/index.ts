@@ -1,22 +1,22 @@
-// A quick reminder on accessors
-class Person {
-  constructor(public firstName: string, public lastName: string) {}
+import { Collection } from './models/Collection';
+import { User, UserProps } from './models/User';
 
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
-  }
-}
+const collection = User.buildUserCollection();
 
-const person = new Person('fN', 'lN');
-console.log(person.fullName);
-
-// ========================
-import { User } from './models/User';
-
-const user = User.buildUser({ id: 1 });
-
-user.on('change', () => {
-  console.log(user);
+collection.on('change', () => {
+  console.log(collection);
 });
 
-user.fetch();
+collection.fetch();
+
+setTimeout(() => {
+  const lastIndex = collection.models.length;
+  console.log(lastIndex);
+  const user = User.buildUser({ id: lastIndex });
+
+  user.on('change', () => {
+    console.log(user);
+  });
+
+  user.fetch();
+}, 4000);
