@@ -693,4 +693,69 @@ holdString.data = 'hello';
 
 #### Deserialize: Put data on an object using some previously saved data (json)
 
-composition - delegation
+---
+
+> **_Jun 21, 2023_**
+
+## Typescript Today
+
+### Typescript has a distinct OOP style
+
+Many popular JS libs were written before JS had any solid idea of 'classes'
+
+Integrating TS with popular JS libs can be tough
+
+#### TS with JS libs
+
+3 ways:
+
+1. Use the lib normally, adding in basic type annotations where possible
+2. Use a TS adapter library that has helpers for using your lib with ts (Ts.ED - A typescript Framework on top of Express)
+3. Twist your lib to work with TS classes
+
+The first way:
+Integration Issues:
+Cons:
+
+- Type definition files alone can't express what is going on in the JS world accurately (example: middleware)
+
+* If the middleware is written in JS code, it is hard for typescript to understand what is going on inside there, which breaks the important role TS plays.
+
+- Type definition files provided to us aren't always accurate
+- EXACERBATED BY THE TYPE DEFINITION FILE - Inputs to a server (or any program with external inputs) are not guaranteed to exist, or be of the correct type
+
+Pros:
+
+- Addressing these type issues with TS can _force_ us to write better code
+
+**Massaging TS and Express to work better together will take a lot of time + effort**
+
+Must get one or two outcomes:
+
+1. Get better type safety (help TS do a better job of catching errors)
+2. Significantly enhance the developer experience
+
+Hard refactor, but would be benefit as above - Stick a bunch of express code into classes + **use some advanced features of TS (decorators)**
+
+### Classes in JS don't really exist. They are 'syntactic sugar' over **_prototypal inheritance_**
+
+```typescript
+class Boat {
+  color: string = 'red';
+
+  pilot(): void {
+    console.log('swish');
+  }
+}
+```
+
+```javascript
+var Boat = /** @class */ (function () {
+  function Boat() {
+    this.color = 'red';
+  }
+  Boat.prototype.pilot = function () {
+    console.log('swish');
+  };
+})();
+```
