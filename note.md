@@ -843,3 +843,28 @@ function logErrorF(errorMessage: string) {
 
 // new Boat().pilot();
 ```
+
+## Metadata
+
+Store hidden value for anything
+Set / retrive the value by using the package 'reflect-metadata
+
+```typescript
+import 'reflect-metadata';
+
+const plane = {
+  color: 'red',
+};
+
+Reflect.defineMetadata('note', 'metadata for object', plane);
+Reflect.defineMetadata('note', 'metadata for color', plane, 'color');
+
+const noteObject = Reflect.getMetadata('note', plane);
+const noteColor = Reflect.getMetadata('note', plane, 'color');
+
+console.log(plane); /* { color: 'red' } */
+console.log(noteObject); /* 'metadata for object' */
+console.log(noteColor); /* 'metadata for color' */
+```
+
+Can be practical when using with decorators
