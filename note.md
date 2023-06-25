@@ -868,3 +868,62 @@ console.log(noteColor); /* 'metadata for color' */
 ```
 
 Can be practical when using with decorators
+
+> **_Jun 24, 2023_**
+
+#### controller for class
+
+```typescript
+@controller('/auth')
+class LoginController {
+  /* ... */
+}
+```
+
+#### route method
+
+```typescript
+ @get('/login')
+  getLogin(req: Request, res: Response): void {
+    res.send(`
+      <form method="POST">
+        <div>
+          <label>Email</label>
+          <input name="email" />
+        </div>
+        <div>
+          <label>Password</label>
+          <input name="password" type="password" />
+        </div>
+        <button>Submit</button>
+      </form>
+    `);
+  }
+```
+
+#### params validator
+
+```typescript
+  @post('/login')
+  @bodyValidator('email', 'password')
+  postLogin(req: Request, res: Response) {
+    const { email, password } = req.body;
+
+    if (email === 'hi@hi.com' && password === 'password') {
+      req.session = { loggedIn: true };
+      res.redirect('/');
+    } else {
+      res.send('Invalid email or password');
+    }
+  }
+```
+
+#### use middleware
+
+```typescript
+  @get('/protected')
+  @use(requireAuth)
+  getProtected(req: Request, res: Response) {
+    res.send('Welcome to protected route, logged in user');
+  }
+```
