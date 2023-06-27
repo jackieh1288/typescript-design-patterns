@@ -1010,7 +1010,7 @@ class App extends React.Component<AppProps, AppState> {
 }
 ```
 
-> **_Jun 25, 2023_**
+> **_Jun 27, 2023_**
 
 ## Tips for getting react, redux work with TS
 
