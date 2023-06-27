@@ -1,0 +1,60 @@
+import React from 'react';
+// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+
+interface AppProps {
+  color?: string;
+}
+
+interface AppState {
+  counter: number;
+}
+
+/** Functional Component, would discuss in later courses */
+// const App = (props: AppProps): JSX.Element => {
+//   return <div>{props.color}</div>;
+// };
+
+/** Class Compoment */
+class App extends React.Component<AppProps> {
+  /** property initialize method */
+  state = { counter: 0 };
+
+  /** constructor initialize method */
+  //   constructor(props: AppProps) {
+  //     super(props);
+
+  //     this.state = { counter: 0 };
+  //   }
+
+  onIncrement = (): void => {
+    this.setState(() => {
+      return { counter: this.state.counter + 1 };
+    });
+  };
+
+  onDecrement = (): void => {
+    this.setState(() => {
+      return { counter: this.state.counter - 1 };
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <div>{this.props.color}</div>
+        <button onClick={this.onDecrement}>Decrement</button>
+        {this.state.counter}
+        <button onClick={this.onIncrement}>Increment</button>
+      </div>
+    );
+  }
+}
+
+/** React v17 & earlier */
+// ReactDOM.render(<App color="red" />, document.querySelector('#root'));
+
+/** React v18 */
+const el = document.getElementById('root');
+const root = ReactDOM.createRoot(el!);
+root.render(<App />);

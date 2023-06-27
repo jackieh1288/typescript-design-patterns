@@ -927,3 +927,111 @@ class LoginController {
     res.send('Welcome to protected route, logged in user');
   }
 ```
+
+> **_Jun 25, 2023_**
+
+# React, Redux with Typescript
+
+### Render ReactDOM
+
+- React v17 & earlier
+
+```typescript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+interface AppProps {
+  color?: string;
+}
+
+/** Class Compoment */
+class App extends React.Component<AppProps> {
+  // ...
+}
+
+ReactDOM.render(<App color="red" />, document.querySelector('#root'));
+```
+
+- React v18
+
+```typescript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+interface AppProps {
+  color?: string;
+}
+
+/** Functional Component */
+const App = (props: AppProps): JSX.Element => {
+  return <div>{props.color}</div>;
+};
+
+const el = document.getElementById('root');
+const root = ReactDOM.createRoot(el!);
+root.render(<App />);
+```
+
+### Class component (older)
+
+**Two ways to initialize a class**
+
+1. property initialization
+
+```typescript
+class App extends React.Component<AppProps> {
+  /** property initialize method */
+  state = { counter: 0 };
+
+  render() {
+    return <div>/** something */</div>;
+  }
+}
+```
+
+2. constructor initialization
+
+```typescript
+interface AppState {
+  counter: number;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  /** constructor initialize method */
+  constructor(props: AppProps) {
+    super(props);
+
+    this.state = { counter: 0 };
+  }
+
+  render() {
+    return <div>/** something */</div>;
+  }
+}
+```
+
+## Tips for getting react, redux work with TS
+
+1. Define interface of props and states for every components
+2. There are two different ways to initialize state of react components
+3. Division of responsibility inside actions directory
+
+```typescript
+export enum ActionTypes {
+  fetchTodos,
+  deleteTodo,
+}
+
+export type Action = FetchTodosAction | DeleteTodoAction;
+
+export const todosReducer = (state: Todo[] = [], action: Action) => {
+  switch (action.type) {
+    case ActionTypes.fetchTodos:
+      return action.payload;
+    case ActionTypes.deleteTodo:
+      return state.filter((todo) => todo.id !== action.payload);
+    default:
+      return state;
+  }
+};
+```
