@@ -1037,3 +1037,9 @@ export const todosReducer = (state: Todo[] = [], action: Action) => {
   }
 };
 ```
+
+> **_Jun 28, 2023_**
+
+```bash
+npx create-react-app <app_name> --template typescript
+```
